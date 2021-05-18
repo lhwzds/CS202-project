@@ -36,25 +36,41 @@ module top(
     //wire[31:0]      RAM_or_IO_data;
     
     wire            ALUSrc;     //1 indicate the 2nd data is immidiate (except "beq","bne")
-    wire            ALUOp;      // if the instruction is R-type or I_format, ALUOp is 2'b10; if the instruction is"beq" or "bne", ALUOp is 2'b01��// if the instruction is"lw" or "sw", ALUOp is 2'b00��
+    wire            ALUOp;      // if the instruction is R-type or I_format, ALUOp is 2'b10; if the instruction is"beq" or "bne", ALUOp is 2'b01；// if the instruction is"lw" or "sw", ALUOp is 2'b00；
     
     wire            Branch,nBranch,Jmp,Jal,Zero,Jr;
     wire            RegWrite; 
-
+   // wire            MemWrite;
     wire            RegDst; 
     wire            Sftmd;
     wire            I_format;
     wire[31:0]      PC_plus_4;
     wire[31:0]      opcplus4;
     wire[31:0]      Addr_Result;
-
-    wire MemWrite;
-    wire MemRead;
-    wire Alu_resultHigh ;
-    wire MemorIOtoReg ;
-    wire IORead ;
-    wire IOWrite ;
-    
+    wire[31:0]      write_data;
+    wire[31:0]      mread_data;
+    wire[31:0]      address;
+    wire            MemorIOtoReg;
+    wire memread,memwrite,ioread,iowrite,LEDCtrl,SwitchCtrl;
+    memorio u_memorio
+    (
+        .memread(memread),				// read memory, from control32
+        .memwrite(memwrite),                // write memory, from control32
+        .ioread(ioread),                // read IO, from control32
+        .iowrite(iowrite),                // write IO, from control32
+        
+        .caddress(ALU_Result),       // from alu_result in executs32
+        
+        .mread_data(mread_data),        // data from memory
+        .ioread_data(sw_input),    // data from io,16 bits
+        .wdata(Read_data_1),            // the data to idecode32,that want to write memory or io
+        .rdata(Read_data_2),            // data from memory or IO that want to read into register
+        .write_data(write_data),    // data to memory or I/O
+        .address(address),       // address to mAddress and I/O
+        
+        .LEDCtrl(LEDCtrl),                // LED CS
+        .SwitchCtrl(SwitchCtrl)          // Switch CS
+    );
     switch u_switch
     (
         .sys_clk        (sys_clk),
@@ -72,6 +88,7 @@ module top(
         .Read_data_1    (Read_data_1),
         .Read_data_2    (Read_data_2),
         .ALU_Result     (ALU_Result),
+       
         .clock          (sys_clk),
         .reset          (sys_rst_n), 
         .Jal            (Jal),  
@@ -79,32 +96,34 @@ module top(
         .RegDst         (RegDst),
         .opcplus4       (opcplus4)
     );
-
     controller u_controller
     (
-        .Opcode         (instruction[31:26]),
-        .Function_opcode(instruction[5:0]),
-     
-        .Jr             (Jr),
-        .Branch         (Branch),
-        .nBranch        (nBranch),
-        .Jal            (Jal),
-        .Jmp            (Jmp),
-
-        .RegDst         (RegDst),
-        .RegWrite       (RegWrite),    
-        .MemWrite          (MemWrite),
-        .MemRead            (MemRead),
-
         .ALUSrc         (ALUSrc),
         .ALUOp          (ALUOp),
-        .Sftmd          (Sftmd),  
-        .I_format       (I_format),
+        
+        .Opcode         (instruction[31:26]),
+        .Function_opcode(instruction[5:0]),
 
+        .Sftmd          (Sftmd),
+        .Branch         (Branch),
+        .nBranch        (nBranch),
+        .Jr             (Jr),
+        .Jal            (Jal),
+        .Jmp            (Jmp),
+        .I_format       (I_format),
+  
+        .RegWrite       (RegWrite),    
+        .RegDst         (RegDst),
+        .MemWrite          (memwrite),
+        .MemRead            (memread),
+        
+
+        
         .Alu_resultHigh (Alu_resultHigh), 
         .MemorIOtoReg (MemorIOtoReg),
-        .IORead (IORead), 
-        .IOWrite(IOWrite) 
+        .IORead (ioread), 
+        .IOWrite(iowrite) 
+
     );
     alu u_alu
     (
@@ -128,7 +147,6 @@ module top(
         .PC_plus_4      (PC_plus_4),
         .Addr_Result    (Addr_Result)
     );
-    
     ifetch u_ifetch
     (
         .Instruction        (instruction),
@@ -136,9 +154,11 @@ module top(
         .link_addr          (opcplus4),
         .clock              (sys_clk),
         .reset              (sys_rst_n), 
+
         .Addr_result        (Addr_Result),
         .Zero               (Zero),
         .Read_data_1        (Read_data_1), 
+
         .Branch             (Branch), 
         .nBranch            (nBranch), 
         .Jmp                (Jmp), 
@@ -146,5 +166,3 @@ module top(
         .Jr                 (Jr) 
     );
 
-     
-endmodule
