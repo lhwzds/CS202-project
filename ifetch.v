@@ -40,7 +40,7 @@ input Jr // while Jr is 1,it means current instruction is jr
 );
 reg[31:0] PC, Next_PC;
 
-prgrom rom(
+RAM rom(
     .clka(clock), // input wire clka
     .addra(PC[15:2]), // input wire [13 : 0] addra
     .douta(Instruction) // output wire [31 : 0] douta
@@ -69,12 +69,14 @@ always @(negedge clock) begin
 //             link_addr[31:30] <= PC[31:30];
 //             link_addr[29:0] <= PC[31:2] + 1'b1;
              PC <= {4'b0000,Instruction[25:0],2'b00};
-             end
+        end
         else
             PC <= Next_PC;
     end
 end
-always @(posedge Jal or posedge Jmp) begin
+wire jalorjmp ;
+assign jalorjmp= Jal || Jmp;
+always @(jalorjmp )begin
     link_addr = (PC+4) >>2;
-    end
+end
 endmodule
