@@ -8,7 +8,7 @@ module decoder(
     input [31:0] ALU_Result,//need to extend to 32 bit
     input Jal,              //1 mean current instuction is JAL
     input RegWrite,
-    input MemtoReg,
+    input MemOrIOtoReg,
     input RegDst,
     input clock,reset,
     input [31:0] opcplus4   //from fetch unit,used in JAL
@@ -53,7 +53,7 @@ module decoder(
                if (6'b000011 == opcode && 1'b1 == Jal) begin
                    write_data = opcplus4;
                end //jal 
-               else if(1'b0 == MemtoReg) begin
+               else if(1'b0 == MemOrIOtoReg) begin
                        write_data = ALU_Result;
                end // R-form
                else begin

@@ -27,8 +27,8 @@ module switch(
     input[15:0]         val,
     
     output reg          sled,
-    output reg [31:0]   instruction,
-    output reg [15:0]   led
+    output reg [31:0]   instruction
+    //output reg [15:0]   led
     
     );
     

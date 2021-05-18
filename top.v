@@ -12,10 +12,10 @@ module top(
     wire[31:0]      instruction;
     wire[31:0]      Imme_extend;
     wire[31:0]      Read_data_1,Read_data_2;
-    wire[31:0]      ALU_Result; ;
+    wire[31:0]      ALU_Result; 
     
     wire            ALUSrc;     //1 indicate the 2nd data is immidiate (except "beq","bne")
-    wire            ALUOp;      // if the instruction is R-type or I_format, ALUOp is 2'b10; if the instruction is"beq" or "bne", ALUOp is 2'b01ï¿½??// if the instruction is"lw" or "sw", ALUOp is 2'b00ï¿½??
+    wire[1:0]       ALUOp;      // if the instruction is R-type or I_format, ALUOp is 2'b10; if the instruction is"beq" or "bne", ALUOp is 2'b01ï¿???// if the instruction is"lw" or "sw", ALUOp is 2'b00ï¿???
     
     wire            Branch,nBranch,Jmp,Jal,Zero,Jr;
     wire            RegWrite; 
@@ -27,30 +27,32 @@ module top(
     wire[31:0]      Addr_Result;
     wire[31:0]      write_data;
     wire[31:0]      mread_data;
+    wire[31:0]      read_data;
     wire[31:0]      address;
     wire            MemorIOtoReg;
-    wire ALU_resultHigh,memread,memwrite,ioread,iowrite,LEDCtrl,SwitchCtrl;
+    wire[21:0]      ALU_resultHigh;
+    wire memread,memwrite,ioread,iowrite,LEDCtrl,SwitchCtrl;
     assign ALU_resultHigh=ALU_Result[31:10];
 
 
     memorio u_memorio
     (
-        .memread(memread),				// read memory, from control32
-        .memwrite(memwrite),                // write memory, from control32
-        .ioread(ioread),                // read IO, from control32
-        .iowrite(iowrite),                // write IO, from control32
+        .memread        (memread),				// read memory, from control32
+        .memwrite       (memwrite),                // write memory, from control32
+        .ioread         (ioread),                // read IO, from control32
+        .iowrite        (iowrite),                // write IO, from control32
         
-        .caddress(ALU_Result),       // from alu_result in executs32
+        .caddress       (ALU_Result),       // from alu_result in executs32
         
-        .mread_data(mread_data),        // data from memory
-        .ioread_data(sw_input),    // data from io,16 bits
-        .wdata(Read_data_1),            // the data to idecode32,that want to write memory or io
-        .rdata(Read_data_2),            // data from memory or IO that want to read into register
-        .write_data(write_data),    // data to memory or I/O
-        .address(address),       // address to mAddress and I/O
+        .mread_data     (mread_data),        // data from memory
+        .ioread_data    (sw_input),    // data from io,16 bits
+        .wdata          (read_data),            // the data to idecode32,that want to write memory or io
+        .rdata          (Read_data_2),            // data from memory or IO that want to read into register
+        .write_data     (write_data),    // data to memory or I/O
+        .address        (address),       // address to mAddress and I/O
         
-        .LEDCtrl(LEDCtrl),                // LED CS
-        .SwitchCtrl(SwitchCtrl)          // Switch CS
+        .LEDCtrl        (LEDCtrl),                // LED CS
+        .SwitchCtrl     (SwitchCtrl)          // Switch CS
     );
     switch u_switch
     (
@@ -63,11 +65,11 @@ module top(
         
     );
     dmemory32 u_dememory(
-        .clock  (sys_clk),
-        .Memwrite (memwrite),
-        .address (address),
-        .write_data (write_data),
-        .read_data(mread_data)
+        .clock          (sys_clk),
+        .Memwrite       (memwrite),
+        .address        (address),
+        .write_data     (write_data),
+        .read_data      (mread_data)
     );
     decoder u_decoder
     (
@@ -76,8 +78,8 @@ module top(
         .Read_data_1    (Read_data_1),
         .Read_data_2    (Read_data_2),
         .ALU_Result     (ALU_Result),
-        .MemtoReg (),
-        .read_data(),
+        .MemOrIOtoReg   (MemorIOtoReg),
+        .read_data      (read_data),
         .clock          (sys_clk),
         .reset          (sys_rst_n), 
         .Jal            (Jal),  
@@ -103,13 +105,13 @@ module top(
   
         .RegWrite       (RegWrite),    
         .RegDst         (RegDst),
-        .MemWrite          (memwrite),
-        .MemRead            (memread),
+        .MemWrite       (memwrite),
+        .MemRead        (memread),
         
         .Alu_resultHigh (ALU_resultHigh), 
-        .MemorIOtoReg (MemorIOtoReg),
-        .IORead (ioread), 
-        .IOWrite(iowrite) 
+        .MemorIOtoReg   (MemorIOtoReg),
+        .IORead         (ioread), 
+        .IOWrite        (iowrite) 
 
     );
     alu u_alu
