@@ -1,24 +1,4 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 2021/05/17 10:07:07
-// Design Name: 
-// Module Name: top
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
 
 module top(
     input           sys_clk,         
@@ -32,15 +12,13 @@ module top(
     wire[31:0]      instruction;
     wire[31:0]      Imme_extend;
     wire[31:0]      Read_data_1,Read_data_2;
-    wire[31:0]      ALU_Result; 
-    //wire[31:0]      RAM_or_IO_data;
+    wire[31:0]      ALU_Result; ;
     
     wire            ALUSrc;     //1 indicate the 2nd data is immidiate (except "beq","bne")
-    wire            ALUOp;      // if the instruction is R-type or I_format, ALUOp is 2'b10; if the instruction is"beq" or "bne", ALUOp is 2'b01；// if the instruction is"lw" or "sw", ALUOp is 2'b00；
+    wire            ALUOp;      // if the instruction is R-type or I_format, ALUOp is 2'b10; if the instruction is"beq" or "bne", ALUOp is 2'b01�??// if the instruction is"lw" or "sw", ALUOp is 2'b00�??
     
     wire            Branch,nBranch,Jmp,Jal,Zero,Jr;
     wire            RegWrite; 
-   // wire            MemWrite;
     wire            RegDst; 
     wire            Sftmd;
     wire            I_format;
@@ -51,7 +29,10 @@ module top(
     wire[31:0]      mread_data;
     wire[31:0]      address;
     wire            MemorIOtoReg;
-    wire memread,memwrite,ioread,iowrite,LEDCtrl,SwitchCtrl;
+    wire ALU_resultHigh,memread,memwrite,ioread,iowrite,LEDCtrl,SwitchCtrl;
+    assign ALU_resultHigh=ALU_Result[31:10];
+
+
     memorio u_memorio
     (
         .memread(memread),				// read memory, from control32
@@ -81,6 +62,13 @@ module top(
         .instruction    (instruction)
         
     );
+    dmemory32 u_dememory(
+        .clock  (sys_clk),
+        .Memwrite (memwrite),
+        .address (address),
+        .write_data (write_data),
+        .read_data(mread_data)
+    );
     decoder u_decoder
     (
         .Instruction    (instruction),
@@ -88,7 +76,8 @@ module top(
         .Read_data_1    (Read_data_1),
         .Read_data_2    (Read_data_2),
         .ALU_Result     (ALU_Result),
-       
+        .MemtoReg (),
+        .read_data(),
         .clock          (sys_clk),
         .reset          (sys_rst_n), 
         .Jal            (Jal),  
@@ -117,9 +106,7 @@ module top(
         .MemWrite          (memwrite),
         .MemRead            (memread),
         
-
-        
-        .Alu_resultHigh (Alu_resultHigh), 
+        .Alu_resultHigh (ALU_resultHigh), 
         .MemorIOtoReg (MemorIOtoReg),
         .IORead (ioread), 
         .IOWrite(iowrite) 
@@ -166,3 +153,4 @@ module top(
         .Jr                 (Jr) 
     );
 
+endmodule
