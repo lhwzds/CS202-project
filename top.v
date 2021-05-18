@@ -46,6 +46,7 @@ module top(
     wire[31:0]      PC_plus_4;
     wire[31:0]      opcplus4;
     wire[31:0]      Addr_Result;
+<<<<<<< Updated upstream
     wire[31:0]      write_data;
     wire[31:0]      mread_data;
     wire[31:0]      address;
@@ -70,6 +71,16 @@ module top(
         .LEDCtrl(LEDCtrl),                // LED CS
         .SwitchCtrl(SwitchCtrl)          // Switch CS
     );
+=======
+
+    wire MemWrite;
+    wire MemRead;
+    wire Alu_resultHigh ;
+    wire MemorIOtoReg ;
+    wire IORead ;
+    wire IOWrite ;
+
+>>>>>>> Stashed changes
     switch u_switch
     (
         .sys_clk        (sys_clk),
@@ -157,6 +168,7 @@ module top(
         .Jr                 (Jr) 
     );
 
+<<<<<<< Updated upstream
      
 
 //    wire [31:0] next_PC;
@@ -300,4 +312,7 @@ endmodule
      
 
 
+=======
+    
+>>>>>>> Stashed changes
 endmodule
