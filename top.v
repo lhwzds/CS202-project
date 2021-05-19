@@ -117,7 +117,7 @@ module top(
         .I_format       (I_format),
   
         .RegWrite       (RegWrite),    
-        .RegDst         (RegDst),
+        .RegDST         (RegDst),
         .MemWrite       (memwrite),
         .MemRead        (memread),
         

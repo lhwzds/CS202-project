@@ -40,7 +40,7 @@ input Jr // while Jr is 1,it means current instruction is jr
 );
 reg[31:0] PC, Next_PC;
 
-prgrom rom(
+program rom(
     .clka(clock), // input wire clka
     .addra(PC[15:2]), // input wire [13 : 0] addra
     .douta(Instruction) // output wire [31 : 0] douta
