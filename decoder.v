@@ -14,7 +14,7 @@ module decoder(
     input [31:0] opcplus4   //from fetch unit,used in JAL
     );
     reg[31:0] register[0:31];
-    reg[4:0] write_register_address;
+    reg[4:0]  write_register_address;
     reg[31:0] write_data;
     
     wire[4:0] read_register_1_address;  //rs

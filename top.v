@@ -4,10 +4,9 @@ module top(
     input           sys_clk,         
     input           sys_rst_n,
      
-    input[15:0]     sw_input,
-    input[2:0]      sw_control,
-    output          sled,
-    output[16:0]    led
+    input[23:0]     sw_input,
+    //output          sled,
+    output[23:0]    led
     );
     wire[31:0]      instruction;
     wire[31:0]      Imme_extend;
@@ -29,6 +28,7 @@ module top(
     wire[31:0]      mread_data;
     wire[31:0]      read_data;
     wire[31:0]      address;
+    wire[31:0]      ioread_data;
     wire            MemorIOtoReg;
     wire[21:0]      ALU_resultHigh;
     wire memread,memwrite,ioread,iowrite,LEDCtrl,SwitchCtrl;
@@ -45,7 +45,7 @@ module top(
         .caddress       (ALU_Result),       // from alu_result in executs32
         
         .mread_data     (mread_data),        // data from memory
-        .ioread_data    (sw_input),    // data from io,16 bits
+        .ioread_data    (ioread_data),    // data from io,16 bits
         .wdata          (read_data),            // the data to idecode32,that want to write memory or io
         .rdata          (Read_data_2),            // data from memory or IO that want to read into register
         .write_data     (write_data),    // data to memory or I/O
@@ -54,17 +54,30 @@ module top(
         .LEDCtrl        (LEDCtrl),                // LED CS
         .SwitchCtrl     (SwitchCtrl)          // Switch CS
     );
-    switch u_switch
+    switchs u_switchs
     (
-        .sys_clk        (sys_clk),
-        .sys_rst_n      (sys_rst_n),
-        .select         (sw_control),
-        .val            (sw_input),
-        .sled           (sled),
-        .instruction    (instruction)
-        
+        .switclk        (sys_clk),
+        .switrst        (sys_rst_n),
+        .switchread     (ioread),
+        .switchaddr     (address[1:0]),//存疑
+        .switch_i       (sw_input),
+
+        .switchrdata    (ioread_data),
+        .switchcs       (SwitchCtrl)
     );
-    dmemory32 u_dememory(
+    
+    leds u_leds
+    (
+    .led_clk            (sys_clk),
+    .ledrst             (sys_rst_n),
+    .ledwrite           (iowrite),
+    .ledcs              (LEDCtrl),
+    .ledaddr            (address[1:0]),//现在还未知,疑似是switch2N4的一些东西,直接读取拨码开关
+    .ledwdata           (write_data[15:0]),
+    .ledout             (led)
+    );
+    dmemory32 u_dememory
+    (
         .clock          (sys_clk),
         .Memwrite       (memwrite),
         .address        (address),
@@ -132,7 +145,6 @@ module top(
         .I_format       (I_format),
         
         .ALU_Result     (ALU_Result),
-        
         .PC_plus_4      (PC_plus_4),
         .Addr_Result    (Addr_Result)
     );
