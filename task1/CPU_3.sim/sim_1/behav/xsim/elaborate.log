@@ -1,0 +1,34 @@
+Vivado Simulator 2017.4
+Copyright 1986-1999, 2001-2016 Xilinx, Inc. All Rights Reserved.
+Running: D:/vivado2/Vivado/2017.4/bin/unwrapped/win64.o/xelab.exe -wto 2fd418735e444d6b82ff06760579ef25 --incr --debug typical --relax --mt 2 -L blk_mem_gen_v8_4_1 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot sim_1_behav xil_defaultlib.sim_1 xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-278] actual bit length 32 differs from formal bit length 16 for port io_rdata [D:/Desktop/CPU_3/CPU_3.srcs/sources_1/imports/new/top.v:47]
+WARNING: [VRFC 10-278] actual bit length 32 differs from formal bit length 24 for port switchrdata [D:/Desktop/CPU_3/CPU_3.srcs/sources_1/imports/new/top.v:63]
+WARNING: [VRFC 10-278] actual bit length 32 differs from formal bit length 16 for port address [D:/Desktop/CPU_3/CPU_3.srcs/sources_1/imports/new/top.v:81]
+WARNING: [VRFC 10-142] switchrdata was previously declared with a different range [D:/Desktop/CPU_3/CPU_3.srcs/sources_1/imports/new/switch.v:13]
+WARNING: [VRFC 10-1783] select index 62 into current_contents is out of bounds [/wrk/2017.4/nightly/2017_12_15_2086221/packages/customer/vivado/data/ip/xilinx/blk_mem_gen_v8_4/simulation/blk_mem_gen_v8_4.v:2420]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.memorio
+Compiling module xil_defaultlib.switchs
+Compiling module xil_defaultlib.leds
+Compiling module blk_mem_gen_v8_4_1.blk_mem_gen_v8_4_1_output_stage(...
+Compiling module blk_mem_gen_v8_4_1.blk_mem_gen_v8_4_1_softecc_outpu...
+Compiling module blk_mem_gen_v8_4_1.blk_mem_gen_v8_4_1_mem_module(C_...
+Compiling module blk_mem_gen_v8_4_1.blk_mem_gen_v8_4_1(C_FAMILY="art...
+Compiling module xil_defaultlib.DRAM
+Compiling module xil_defaultlib.dmemory32
+Compiling module xil_defaultlib.decoder
+Compiling module xil_defaultlib.controller
+Compiling module xil_defaultlib.alu
+Compiling module blk_mem_gen_v8_4_1.blk_mem_gen_v8_4_1_mem_module(C_...
+Compiling module blk_mem_gen_v8_4_1.blk_mem_gen_v8_4_1(C_FAMILY="art...
+Compiling module xil_defaultlib.prgrom
+Compiling module xil_defaultlib.ifetch
+Compiling module xil_defaultlib.top
+Compiling module xil_defaultlib.sim_1
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot sim_1_behav

@@ -1,0 +1,44 @@
+#-----------------------------------------------------------
+# Vivado v2017.4 (64-bit)
+# SW Build 2086221 on Fri Dec 15 20:55:39 MST 2017
+# IP Build 2085800 on Fri Dec 15 22:25:07 MST 2017
+# Start of session at: Thu May 20 16:02:05 2021
+# Process ID: 8932
+# Current directory: D:/Desktop/CPU_3
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent19836 D:\Desktop\CPU_3\CPU_3.xpr
+# Log file: D:/Desktop/CPU_3/vivado.log
+# Journal file: D:/Desktop/CPU_3\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project D:/Desktop/CPU_3/CPU_3.xpr
+update_compile_order -fileset sources_1
+generate_target Simulation [get_files D:/Desktop/CPU_3/CPU_3.srcs/sources_1/ip/prgrom/prgrom.xci]
+export_ip_user_files -of_objects [get_files D:/Desktop/CPU_3/CPU_3.srcs/sources_1/ip/prgrom/prgrom.xci] -no_script -sync -force -quiet
+export_simulation -of_objects [get_files D:/Desktop/CPU_3/CPU_3.srcs/sources_1/ip/prgrom/prgrom.xci] -directory D:/Desktop/CPU_3/CPU_3.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/CPU_3/CPU_3.ip_user_files -ipstatic_source_dir D:/Desktop/CPU_3/CPU_3.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/CPU_3/CPU_3.cache/compile_simlib/modelsim} {questa=D:/Desktop/CPU_3/CPU_3.cache/compile_simlib/questa} {riviera=D:/Desktop/CPU_3/CPU_3.cache/compile_simlib/riviera} {activehdl=D:/Desktop/CPU_3/CPU_3.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+generate_target Simulation [get_files D:/Desktop/CPU_3/CPU_3.srcs/sources_1/ip/DRAM/DRAM.xci]
+export_ip_user_files -of_objects [get_files D:/Desktop/CPU_3/CPU_3.srcs/sources_1/ip/DRAM/DRAM.xci] -no_script -sync -force -quiet
+export_simulation -of_objects [get_files D:/Desktop/CPU_3/CPU_3.srcs/sources_1/ip/DRAM/DRAM.xci] -directory D:/Desktop/CPU_3/CPU_3.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/CPU_3/CPU_3.ip_user_files -ipstatic_source_dir D:/Desktop/CPU_3/CPU_3.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/CPU_3/CPU_3.cache/compile_simlib/modelsim} {questa=D:/Desktop/CPU_3/CPU_3.cache/compile_simlib/questa} {riviera=D:/Desktop/CPU_3/CPU_3.cache/compile_simlib/riviera} {activehdl=D:/Desktop/CPU_3/CPU_3.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+launch_simulation
+source sim_1.tcl
+add_wave {{/sim_1/test/u_ifetch}} 
+relaunch_sim
+set_property -dict [list CONFIG.Coe_File {d:/Desktop/CPU_3/CPU_3.srcs/sources_1/ip/prgrom/prgrom.coe}] [get_ips prgrom]
+generate_target all [get_files  D:/Desktop/CPU_3/CPU_3.srcs/sources_1/ip/prgrom/prgrom.xci]
+catch { config_ip_cache -export [get_ips -all prgrom] }
+export_ip_user_files -of_objects [get_files D:/Desktop/CPU_3/CPU_3.srcs/sources_1/ip/prgrom/prgrom.xci] -no_script -sync -force -quiet
+reset_run prgrom_synth_1
+launch_runs -jobs 7 prgrom_synth_1
+export_simulation -of_objects [get_files D:/Desktop/CPU_3/CPU_3.srcs/sources_1/ip/prgrom/prgrom.xci] -directory D:/Desktop/CPU_3/CPU_3.ip_user_files/sim_scripts -ip_user_files_dir D:/Desktop/CPU_3/CPU_3.ip_user_files -ipstatic_source_dir D:/Desktop/CPU_3/CPU_3.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Desktop/CPU_3/CPU_3.cache/compile_simlib/modelsim} {questa=D:/Desktop/CPU_3/CPU_3.cache/compile_simlib/questa} {riviera=D:/Desktop/CPU_3/CPU_3.cache/compile_simlib/riviera} {activehdl=D:/Desktop/CPU_3/CPU_3.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+close_sim
+launch_simulation
+source sim_1.tcl
+add_wave {{/sim_1/test/u_ifetch}} 
+relaunch_sim
+add_wave {{/sim_1/test/u_decoder}} 
+relaunch_sim
+close_sim
+launch_simulation
+source sim_1.tcl
+add_wave {{/sim_1/test/u_leds}} 
+relaunch_sim
+close_sim

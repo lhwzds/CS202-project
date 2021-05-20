@@ -1,0 +1,19 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"../../../../CPU_3.srcs/sources_1/ip/prgrom/sim/prgrom.v" \
+"../../../../CPU_3.srcs/sources_1/ip/DRAM/sim/DRAM.v" \
+"../../../../../CPU_2/CPU_2.srcs/sources_1/new/alu.v" \
+"../../../../../CPU_2/CPU_2.srcs/sources_1/new/controller.v" \
+"../../../../../CPU_2/CPU_2.srcs/sources_1/new/decoder.v" \
+"../../../../../CPU_2/CPU_2.srcs/sources_1/new/dmemory.v" \
+"../../../../../CPU_2/CPU_2.srcs/sources_1/new/ifetch.v" \
+"../../../../CPU_3.srcs/sources_1/new/leds.v" \
+"../../../../../CPU_2/CPU_2.srcs/sources_1/new/memorio.v" \
+"../../../../../CPU_2/CPU_2.srcs/sources_1/new/switch.v" \
+"../../../../../CPU_2/CPU_2.srcs/sources_1/new/top.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

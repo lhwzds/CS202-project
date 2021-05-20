@@ -1,0 +1,20 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"../../../../CPU_3.srcs/sources_1/ip/prgrom/sim/prgrom.v" \
+"../../../../CPU_3.srcs/sources_1/ip/DRAM/sim/DRAM.v" \
+"../../../../CPU_3.srcs/sources_1/imports/new/alu.v" \
+"../../../../CPU_3.srcs/sources_1/imports/new/controller.v" \
+"../../../../CPU_3.srcs/sources_1/imports/new/decoder.v" \
+"../../../../CPU_3.srcs/sources_1/imports/new/dmemory.v" \
+"../../../../CPU_3.srcs/sources_1/imports/new/ifetch.v" \
+"../../../../CPU_3.srcs/sources_1/new/leds.v" \
+"../../../../CPU_3.srcs/sources_1/imports/new/memorio.v" \
+"../../../../CPU_3.srcs/sources_1/imports/new/switch.v" \
+"../../../../CPU_3.srcs/sources_1/imports/new/top.v" \
+"../../../../CPU_3.srcs/sim_1/new/sim_1.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

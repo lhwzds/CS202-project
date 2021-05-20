@@ -15,7 +15,7 @@ initial begin rst=1;clk=0;end
 initial begin #2 rst=0;end
 initial begin
 forever begin
-        #100 sw_input = 24'h000000;
+        #100 sw_input = 24'h010001;
 end
 end
 always #10 clk = ~clk;

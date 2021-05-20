@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2017.4 (64-bit)
+# SW Build 2086221 on Fri Dec 15 20:55:39 MST 2017
+# IP Build 2085800 on Fri Dec 15 22:25:07 MST 2017
+# Start of session at: Wed May 19 11:03:44 2021
+# Process ID: 16744
+# Current directory: P:/computer_organization/CPU_3/CPU_3.runs/DRAM_synth_1
+# Command line: vivado.exe -log DRAM.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source DRAM.tcl
+# Log file: P:/computer_organization/CPU_3/CPU_3.runs/DRAM_synth_1/DRAM.vds
+# Journal file: P:/computer_organization/CPU_3/CPU_3.runs/DRAM_synth_1\vivado.jou
+#-----------------------------------------------------------
+source DRAM.tcl -notrace

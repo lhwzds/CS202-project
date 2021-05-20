@@ -1,0 +1,17 @@
+0.6
+2017.4
+Dec 15 2017
+21:07:18
+D:/Desktop/CPU_3/CPU_3.sim/sim_1/behav/xsim/glbl.v,1513215259,verilog,,,,glbl,,,,,,,,
+D:/Desktop/CPU_3/CPU_3.srcs/sim_1/new/sim_1.v,1621511563,verilog,,,,sim_1,,,,,,,,
+D:/Desktop/CPU_3/CPU_3.srcs/sources_1/imports/new/alu.v,1621511484,verilog,,D:/Desktop/CPU_3/CPU_3.srcs/sources_1/imports/new/controller.v,,alu,,,,,,,,
+D:/Desktop/CPU_3/CPU_3.srcs/sources_1/imports/new/controller.v,1621477638,verilog,,D:/Desktop/CPU_3/CPU_3.srcs/sources_1/imports/new/decoder.v,,controller,,,,,,,,
+D:/Desktop/CPU_3/CPU_3.srcs/sources_1/imports/new/decoder.v,1621498974,verilog,,D:/Desktop/CPU_3/CPU_3.srcs/sources_1/imports/new/dmemory.v,,decoder,,,,,,,,
+D:/Desktop/CPU_3/CPU_3.srcs/sources_1/imports/new/dmemory.v,1621477917,verilog,,D:/Desktop/CPU_3/CPU_3.srcs/sources_1/imports/new/ifetch.v,,dmemory32,,,,,,,,
+D:/Desktop/CPU_3/CPU_3.srcs/sources_1/imports/new/ifetch.v,1621477936,verilog,,D:/Desktop/CPU_3/CPU_3.srcs/sources_1/new/leds.v,,ifetch,,,,,,,,
+D:/Desktop/CPU_3/CPU_3.srcs/sources_1/imports/new/memorio.v,1621491462,verilog,,D:/Desktop/CPU_3/CPU_3.srcs/sources_1/imports/new/switch.v,,memorio,,,,,,,,
+D:/Desktop/CPU_3/CPU_3.srcs/sources_1/imports/new/switch.v,1621477784,verilog,,D:/Desktop/CPU_3/CPU_3.srcs/sources_1/imports/new/top.v,,switchs,,,,,,,,
+D:/Desktop/CPU_3/CPU_3.srcs/sources_1/imports/new/top.v,1621491494,verilog,,D:/Desktop/CPU_3/CPU_3.srcs/sim_1/new/sim_1.v,,top,,,,,,,,
+D:/Desktop/CPU_3/CPU_3.srcs/sources_1/ip/DRAM/sim/DRAM.v,1621497787,verilog,,D:/Desktop/CPU_3/CPU_3.srcs/sources_1/imports/new/alu.v,,DRAM,,,,,,,,
+D:/Desktop/CPU_3/CPU_3.srcs/sources_1/ip/prgrom/sim/prgrom.v,1621506910,verilog,,D:/Desktop/CPU_3/CPU_3.srcs/sources_1/ip/DRAM/sim/DRAM.v,,prgrom,,,,,,,,
+D:/Desktop/CPU_3/CPU_3.srcs/sources_1/new/leds.v,1621477843,verilog,,D:/Desktop/CPU_3/CPU_3.srcs/sources_1/imports/new/memorio.v,,leds,,,,,,,,
