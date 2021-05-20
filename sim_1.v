@@ -12,20 +12,11 @@ top test(
 .led(led2N4)
 );
 initial begin rst=1;clk=0;end
-
+initial begin #2 rst=0;end
 initial begin
-        #000  rst=0;
+forever begin
         #100 sw_input = 24'h000000;
-        #100 sw_input = 24'h000000;
-        #100 sw_input = 24'h000000;
-        #100 sw_input = 24'h000000;
-        #100 sw_input = 24'h000000;
-        #100 sw_input = 24'h000000;
-        #100 sw_input = 24'h000000;
-        #100 sw_input = 24'h000000;
-        #100 sw_input = 24'h000000;
-        #100 sw_input = 24'h000000;
-
+end
 end
 always #10 clk = ~clk;
 endmodule

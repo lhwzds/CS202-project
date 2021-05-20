@@ -64,5 +64,5 @@ module decoder(
            always @* begin                                            
                    if(RegWrite == 1)
                         write_register_address = Jal ? 5'b11111 : (RegDst ? write_register_address_1 : write_register_address_0);
-               end
+          end
 endmodule

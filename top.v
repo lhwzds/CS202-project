@@ -14,7 +14,7 @@ module top(
     wire[31:0]      ALU_Result; 
     
     wire            ALUSrc;     //1 indicate the 2nd data is immidiate (except "beq","bne")
-    wire[1:0]       ALUOp;      // if the instruction is R-type or I_format, ALUOp is 2'b10; if the instruction is"beq" or "bne", ALUOp is 2'b01ï¿???// if the instruction is"lw" or "sw", ALUOp is 2'b00ï¿???
+    wire[1:0]       ALUOp;      // if the instruction is R-type or I_format, ALUOp is 2'b10; if the instruction is"beq" or "bne", ALUOp is 2'b01ï¿½???// if the instruction is"lw" or "sw", ALUOp is 2'b00ï¿½???
     
     wire            Branch,nBranch,Jmp,Jal,Zero,Jr;
     wire            RegWrite; 
@@ -37,29 +37,29 @@ module top(
 
     memorio u_memorio
     (
-        .memread        (memread),				// read memory, from control32
-        .memwrite       (memwrite),                // write memory, from control32
-        .ioread         (ioread),                // read IO, from control32
-        .iowrite        (iowrite),                // write IO, from control32
+        .mRead        (memread),				
+        .mWrite       (memwrite),               
+        .ioRead         (ioread),             
+        .ioWrite        (iowrite),               
         
-        .caddress       (ALU_Result),       // from alu_result in executs32
-        
-        .mread_data     (mread_data),        // data from memory
-        .ioread_data    (ioread_data),    // data from io,16 bits
-        .wdata          (read_data),            // the data to idecode32,that want to write memory or io
-        .rdata          (Read_data_2),            // data from memory or IO that want to read into register
-        .write_data     (write_data),    // data to memory or I/O
-        .address        (address),       // address to mAddress and I/O
-        
-        .LEDCtrl        (LEDCtrl),                // LED CS
-        .SwitchCtrl     (SwitchCtrl)          // Switch CS
+        .addr_in     (ALU_Result),       
+        .addr_out       (address),      
+
+        .m_rdata    (mread_data),      
+        .io_rdata    (ioread_data),   
+        .r_wdata          (read_data),           
+        .r_rdata          (Read_data_2),           
+        .write_data     (write_data),    
+        .LEDCtrl        (LEDCtrl),           
+        .SwitchCtrl     (SwitchCtrl)         
     );
+
     switchs u_switchs
     (
         .switclk        (sys_clk),
         .switrst        (sys_rst_n),
         .switchread     (ioread),
-        .switchaddr     (address[1:0]),//´æÒÉ
+        .switchaddr     (address[1:0]),
         .switch_i       (sw_input),
 
         .switchrdata    (ioread_data),
@@ -72,7 +72,7 @@ module top(
     .ledrst             (sys_rst_n),
     .ledwrite           (iowrite),
     .ledcs              (LEDCtrl),
-    .ledaddr            (address[1:0]),//ÏÖÔÚ»¹Î´Öª,ÒÉËÆÊÇswitch2N4µÄÒ»Ð©¶«Î÷,Ö±½Ó¶ÁÈ¡²¦Âë¿ª¹Ø
+    .ledaddr            (address[1:0]),
     .ledwdata           (write_data[15:0]),
     .ledout             (led)
     );
