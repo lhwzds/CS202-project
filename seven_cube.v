@@ -1,7 +1,8 @@
 `timescale 1ns / 1ps
-module selection(
+module seven_cube(
     input clock,
     input sys_rst_n,
+    input CubeCtrl,
     input [15:0] switch,
     output reg [7:0]control, 
     output reg [7:0]cube_data
@@ -10,7 +11,7 @@ module selection(
     reg [16:0]divider_cnt;
     reg clk_1K;
     reg [7:0]dout1,dout2,dout3,dout4;
-    always@(posedge clock ) begin
+    always@(posedge clock  ) begin
         if(sys_rst_n==1) begin
             divider_cnt <= 15'd0;
             clk_1K<=1'd0;
@@ -99,7 +100,8 @@ module selection(
     if(switch[15:12]==4'b1110) dout4 = 8'b1111001;
     if(switch[15:12]==4'b1111) dout4 = 8'b1110001;
     end                                                                                                                                             
-    always @(number)begin         
+    always @(number)begin    
+    //if(CubeCtrl)     
         case(number)
         4:begin control=8'b11110111; cube_data=~dout4;end
         5:begin control=8'b11111011; cube_data=~dout3;end

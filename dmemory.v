@@ -9,7 +9,7 @@ module dmemory32(
     );
     wire clk;
     assign clk = !clock;
-    RAM RAM (
+    DRAM RAM (
     .clka(clk), // input wire clka
     .wea(Memwrite), // input wire [0 : 0] wea
     .addra(address[15:2]), // input wire [13 : 0] addra

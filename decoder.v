@@ -40,7 +40,7 @@ module decoder(
     assign Read_data_2 = register[read_register_2_address];
     
     integer i;
-        always @(posedge clock) begin       
+        always @(posedge clock or posedge reset) begin       
             if(reset==1) begin             
                 for(i=0;i<32;i=i+1)
                     register[i] <= 0;
@@ -63,6 +63,7 @@ module decoder(
            end
            always @* begin                                            
                    if(RegWrite == 1)
-                        write_register_address = Jal ? 5'b11111 : (RegDst ? write_register_address_1 : write_register_address_0);
-          end
+                        write_register_address = Jal ? 5'b11111 : 
+                        (RegDst ? write_register_address_1 : write_register_address_0);
+               end
 endmodule

@@ -1,20 +1,20 @@
-`timescale 1ns / 1ps
-
 module top(
     input           sys_clk,         
     input           sys_rst_n,
      
     input[23:0]     sw_input,
-    //output          sled,
-    output[23:0]    led
+    output [23:0]    led,
+    output [7:0]control, 
+    output [7:0]cube_data
     );
+    
     wire[31:0]      instruction;
     wire[31:0]      Imme_extend;
     wire[31:0]      Read_data_1,Read_data_2;
     wire[31:0]      ALU_Result; 
     
     wire            ALUSrc;     //1 indicate the 2nd data is immidiate (except "beq","bne")
-    wire[1:0]       ALUOp;      // if the instruction is R-type or I_format, ALUOp is 2'b10; if the instruction is"beq" or "bne", ALUOp is 2'b01�???// if the instruction is"lw" or "sw", ALUOp is 2'b00�???
+    wire[1:0]       ALUOp;      // if the instruction is R-type or I_format, ALUOp is 2'b10; if the instruction is"beq" or "bne", ALUOp is 2'b01????// if the instruction is"lw" or "sw", ALUOp is 2'b00????
     
     wire            Branch,nBranch,Jmp,Jal,Zero,Jr;
     wire            RegWrite; 
@@ -32,9 +32,22 @@ module top(
     wire            MemorIOtoReg;
     wire[21:0]      ALU_resultHigh;
     wire memread,memwrite,ioread,iowrite,LEDCtrl,SwitchCtrl;
+    wire clk;
+    wire CubeCtrl;
     assign ALU_resultHigh=ALU_Result[31:10];
-
-
+    pll upll(
+    .reset(sys_rst_n),
+    .clk_in1(sys_clk),
+    .clk_out1(clk)
+    );
+    seven_cube u_cube(
+        .clock(sys_clk),
+        .sys_rst_n(sys_rst_n),
+        .CubeCtrl(CubeCtrl),
+        .switch(led[15:0]),
+        .control(control),
+        .cube_data(cube_data)
+    );
     memorio u_memorio
     (
         .mRead        (memread),				
@@ -50,13 +63,14 @@ module top(
         .r_wdata          (read_data),           
         .r_rdata          (Read_data_2),           
         .write_data     (write_data),    
+        .CUBECtrl(CubeCtrl),
         .LEDCtrl        (LEDCtrl),           
         .SwitchCtrl     (SwitchCtrl)         
     );
 
     switchs u_switchs
     (
-        .switclk        (sys_clk),
+        .switclk        (clk),
         .switrst        (sys_rst_n),
         .switchread     (ioread),
         .switchaddr     (address[1:0]),
@@ -68,7 +82,7 @@ module top(
     
     leds u_leds
     (
-    .led_clk            (sys_clk),
+    .led_clk            (clk),
     .ledrst             (sys_rst_n),
     .ledwrite           (iowrite),
     .ledcs              (LEDCtrl),
@@ -78,7 +92,7 @@ module top(
     );
     dmemory32 u_dememory
     (
-        .clock          (sys_clk),
+        .clock          (clk),
         .Memwrite       (memwrite),
         .address        (address),
         .write_data     (write_data),
@@ -93,7 +107,7 @@ module top(
         .ALU_Result     (ALU_Result),
         .MemOrIOtoReg   (MemorIOtoReg),
         .read_data      (read_data),
-        .clock          (sys_clk),
+        .clock          (clk),
         .reset          (sys_rst_n), 
         .Jal            (Jal),  
         .RegWrite       (RegWrite),    
@@ -153,7 +167,7 @@ module top(
         .Instruction        (instruction),
         .branch_base_addr   (PC_plus_4),
         .link_addr          (opcplus4),
-        .clock              (sys_clk),
+        .clock              (clk),
         .reset              (sys_rst_n), 
 
         .Addr_result        (Addr_Result),

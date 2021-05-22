@@ -19,7 +19,6 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-
 module alu 
 ( 
 // from decoder
@@ -75,6 +74,8 @@ always @(ALU_ctl or Ainput or Binput) begin
         default:ALU_output_mux=32'b0000_0000_0000_0000_0000_0000_0000_0000;
     endcase
 end
+wire [15:0]  srabit;
+assign srabit=(Binput[15:15]==1'b1)?16'b1111111111111111:16'b0;
 always @* begin // six types of shift instructions
     if(Sftmd)
         case(Sftm[2:0])
@@ -82,7 +83,10 @@ always @* begin // six types of shift instructions
             3'b010:Shift_Result = Binput >> Shamt; //Srl rd,rt,shamt 00010
             3'b100:Shift_Result = Binput << Ainput; //Sllv rd,rt,rs 000100
             3'b110:Shift_Result = Binput >> Ainput; //Srlv rd,rt,rs 000110
-            3'b011:Shift_Result = $signed (Binput) >>> Shamt; //Sra rd,rt,shamt 00011
+            3'b011: begin          
+            Shift_Result = $signed ({srabit,Binput[15:0]}) >>> Shamt;              
+            end
+        //Sra rd,rt,shamt 00011
             3'b111:Shift_Result = $signed (Binput) >>> Ainput; //Srav rd,rt,rs 00111
         default:Shift_Result = Binput;
         endcase
